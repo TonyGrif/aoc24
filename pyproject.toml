@@ -1,0 +1,46 @@
+[project]
+name = "aoc24"
+version = "0.0.1"
+description = "Collection of solutions for Advent of Code 2025"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "click>=8.1.7",
+]
+
+[project.scripts]
+example = "day:main"
+
+[dependency-groups]
+dev = [
+    "isort>=5.13.2",
+    "mypy>=1.13.0",
+    "poethepoet>=0.30.0",
+    "pylint>=3.3.1",
+    "pytest>=8.3.3",
+    "pytest-cov>=6.0.0",
+    "ruff>=0.8.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+
+[tool.poe.tasks]
+test = "pytest --cov --cov-report term-missing"
+_format = "ruff format day/"
+_import = "ruff check --fix day/"
+format = ["_format", "_import"]
+_type = "mypy day/"
+_pylint = "pylint day/"
+_check = "ruff check day/"
+lint = ["_check", "_type", "_pylint"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["day/"]
