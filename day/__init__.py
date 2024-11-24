@@ -4,8 +4,8 @@ import click
 
 
 @click.command()
-@click.option("--part", default=1, help="The part to solve for")
-def main(part):
+@click.option("--part", default=1, type=int, help="The part to solve for")
+def main(part: int):
     """Main driver of package."""
     if part == 1:
         click.echo("Hello from aoc24 part 1!")
