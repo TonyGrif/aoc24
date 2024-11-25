@@ -21,6 +21,9 @@ dev = [
     "pytest-cov>=6.0.0",
     "ruff>=0.8.0",
 ]
+docs = [
+    "mkdocs>=1.6.1",
+]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -42,6 +45,8 @@ _type = "mypy day/"
 _pylint = "pylint day/"
 _check = "ruff check day/"
 lint = ["_check", "_type", "_pylint"]
+docs = "mkdocs serve"
+pubdocs = "mkdocs build"
 
 [build-system]
 requires = ["hatchling"]
