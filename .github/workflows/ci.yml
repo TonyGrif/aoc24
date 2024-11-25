@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v3
         with:
-          version: ${{ uv.version }}
+          version: ${{ uv-version }}
           enable-cache: true
           cache-dependency-glob: "uv.lock"
       - uses: actions/setup-python@v4
