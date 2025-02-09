@@ -1,18 +1,19 @@
 plugins {
     application
+
+    jacoco
+    pmd
+
+    id ("org.barfuin.gradle.jacocolog") version "3.1.0"
+    id ("com.github.spotbugs") version "6.1.3"
+    id ("com.diffplug.spotless") version "7.0.2"
 }
 
 dependencies {
-    // Use JUnit Jupiter for testing.
     testImplementation(libs.junit.jupiter)
-
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
-    // This dependency is used by the application.
-    implementation(libs.guava)
 }
 
-// Apply a specific Java toolchain to ease working on different environments.
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(23)
@@ -25,6 +26,50 @@ application {
 }
 
 tasks.named<Test>("test") {
-    // Use JUnit Platform for unit tests.
     useJUnitPlatform()
+    testLogging {
+        events("passed", "skipped", "failed", "standardOut", "standardError")
+    }
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+}
+
+pmd {
+    toolVersion = "7.10.0"
+    isConsoleOutput = true
+}
+
+tasks.pmdTest {
+    enabled = false
+}
+
+tasks.withType<Pmd>().configureEach {
+    ignoreFailures = true
+}
+
+spotless {
+    java {
+        importOrder()
+        cleanthat()
+        googleJavaFormat()
+    }
+}
+
+tasks.check {
+    dependsOn(tasks.spotlessCheck)
+}
+
+tasks.register("format") {
+    dependsOn(tasks.spotlessApply)
+}
+
+spotbugs {
+    ignoreFailures = true
 }
