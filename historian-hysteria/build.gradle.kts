@@ -21,7 +21,7 @@ java {
 }
 
 application {
-    mainClass = "adventofcode.App"
+    mainClass = "adventofcode.dayone.App"
 }
 
 tasks.named<Test>("test") {
