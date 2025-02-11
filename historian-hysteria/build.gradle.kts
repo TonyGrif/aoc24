@@ -21,7 +21,7 @@ java {
 }
 
 application {
-    mainClass = "adventofcode.dayone.App"
+    mainClass = "adventofcode.dayone.Interface"
 }
 
 tasks.named<Test>("test") {
