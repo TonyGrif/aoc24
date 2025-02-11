@@ -14,7 +14,7 @@ public class Utils {
    * @param file The text file to parse
    * @return A list containing all the column data contained within their own list
    */
-  public ArrayList<ArrayList<Integer>> parseFile(File file) {
+  public static ArrayList<ArrayList<Integer>> parseFile(File file) {
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
       ArrayList<Integer> columnOne = new ArrayList<>();
       ArrayList<Integer> columnTwo = new ArrayList<>();
