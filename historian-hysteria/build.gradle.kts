@@ -24,6 +24,17 @@ application {
     mainClass = "adventofcode.one.CLI"
 }
 
+tasks.jar {
+    archiveBaseName.set("historian-hysteria")
+    archiveVersion.set("1.0.0")
+}
+
+tasks.register<Copy>("copyJarToRoot") {
+    dependsOn(tasks.jar)
+    from(tasks.jar.get().outputs)
+    into("${rootProject.layout.buildDirectory.get()}/jars")
+}
+
 tasks.named<Test>("test") {
     useJUnitPlatform()
     testLogging {
