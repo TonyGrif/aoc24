@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.IntStream;
 
 /** Utilities class containing functions required for historian-hysteria */
 public class Utils {
@@ -35,5 +37,23 @@ public class Utils {
       System.err.println(e.getMessage());
       return new ArrayList<>();
     }
+  }
+
+  /**
+   * Calculate the distance between all elements of two lists
+   *
+   * @param listOne The first list
+   * @param listTwo The second list
+   * @return The distances between all elements
+   */
+  public static Integer countTotalDistance(ArrayList<Integer> listOne, ArrayList<Integer> listTwo) {
+    AtomicReference<Integer> count = new AtomicReference<>(0);
+
+    IntStream.range(0, listOne.size())
+        .forEach(
+            index ->
+                count.updateAndGet(v -> v + Math.abs(listOne.get(index) - listTwo.get(index))));
+
+    return count.get();
   }
 }
