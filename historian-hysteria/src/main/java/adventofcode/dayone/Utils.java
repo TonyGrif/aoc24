@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.IntStream;
 
@@ -56,6 +57,24 @@ public class Utils {
         .forEach(
             index ->
                 count.updateAndGet(v -> v + Math.abs(listOne.get(index) - listTwo.get(index))));
+
+    return count.get();
+  }
+
+  /**
+   * Calculate the 'similarity score' for the two lists
+   *
+   * @param listOne List containing the main numbers
+   * @param listTwo List containing numbers for frequency
+   * @return The similarity score of the two lists
+   */
+  public static Integer calculateSimilarityScore(
+      ArrayList<Integer> listOne, ArrayList<Integer> listTwo) {
+    AtomicReference<Integer> count = new AtomicReference<>(0);
+
+    for (Integer val : listOne) {
+      count.updateAndGet(v -> v + (val * Collections.frequency(listTwo, val)));
+    }
 
     return count.get();
   }

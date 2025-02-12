@@ -20,7 +20,8 @@ public class CLI {
 
   private static void parseCommand(File input, ArrayList<String> opts) {
     if (opts.contains("--day-two")) {
-      // TODO
+      daytwo(input);
+      return;
     }
     dayone(input);
   }
@@ -36,7 +37,14 @@ public class CLI {
     System.out.println("Calculating total distances...");
     System.out.printf(
         "Calculated Total: %s", Utils.countTotalDistance(columns.get(0), columns.get(1)));
+  }
 
-    System.exit(0);
+  private static void daytwo(File inputFile) {
+    System.out.println("Parsing input file...");
+    ArrayList<ArrayList<Integer>> columns = Utils.parseFile(inputFile);
+
+    System.out.println("Calculating score...");
+    System.out.printf(
+        "Calculated Total: %s", Utils.calculateSimilarityScore(columns.get(0), columns.get(1)));
   }
 }
