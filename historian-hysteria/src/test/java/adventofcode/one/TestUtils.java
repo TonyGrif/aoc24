@@ -1,4 +1,4 @@
-package adventofcode.dayone;
+package adventofcode.one;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

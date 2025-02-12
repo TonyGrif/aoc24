@@ -21,7 +21,7 @@ java {
 }
 
 application {
-    mainClass = "adventofcode.dayone.CLI"
+    mainClass = "adventofcode.one.CLI"
 }
 
 tasks.named<Test>("test") {
