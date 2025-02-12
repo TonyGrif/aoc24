@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.IntStream;
@@ -17,15 +18,17 @@ public class Utils {
    * @return A list containing all the column data contained within their own list
    */
   public static ArrayList<ArrayList<Integer>> parseFile(File file) {
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(file, StandardCharsets.UTF_8))) {
       ArrayList<Integer> columnOne = new ArrayList<>();
       ArrayList<Integer> columnTwo = new ArrayList<>();
 
-      String line;
-      while ((line = reader.readLine()) != null) {
+      String line = reader.readLine();
+      while (line != null) {
         String[] nums = line.split("\\s+");
         columnOne.add(Integer.parseInt(nums[0]));
         columnTwo.add(Integer.parseInt(nums[1]));
+
+        line = reader.readLine();
       }
       return new ArrayList<>() {
         {
